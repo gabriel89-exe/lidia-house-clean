@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { LanguageProvider } from './context/LanguageContext'
 import { AdminProvider, useAdmin } from './context/AdminContext'
 import Header from './components/Header'
@@ -16,7 +16,7 @@ import AdminPanel from './components/AdminPanel'
    o AdminContext (useAdmin) — que só existe dentro do AdminProvider.
    Recebe theme/toggleTheme como props para evitar re-render duplo.
 ══════════════════════════════════════════════════════════════ */
-function AppInner({ theme, toggleTheme }) {
+function AppInner() {
   const { showAdmin, closeAdmin } = useAdmin()
 
   // IntersectionObserver: adiciona .visible nos elementos .reveal
@@ -34,7 +34,7 @@ function AppInner({ theme, toggleTheme }) {
 
   return (
     <div className="app">
-      <Header theme={theme} toggleTheme={toggleTheme} />
+      <Header />
 
       <main>
         <Hero />       {/* Seção de destaque com imagem e CTAs */}
@@ -67,21 +67,15 @@ function AppInner({ theme, toggleTheme }) {
      - Hierarquia de providers: LanguageProvider → AdminProvider → AppInner
 ══════════════════════════════════════════════════════════════ */
 export default function App() {
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light')
-
   useEffect(() => {
-    // Aplica o tema como atributo data-theme no <html>
-    // O CSS usa [data-theme="dark"] para sobrescrever as variáveis
-    document.documentElement.setAttribute('data-theme', theme)
-    localStorage.setItem('theme', theme)
-  }, [theme])
-
-  const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light')
+    document.documentElement.setAttribute('data-theme', 'light')
+    localStorage.setItem('theme', 'light')
+  }, [])
 
   return (
     <LanguageProvider>
       <AdminProvider>
-        <AppInner theme={theme} toggleTheme={toggleTheme} />
+        <AppInner />
       </AdminProvider>
     </LanguageProvider>
   )

@@ -6,7 +6,7 @@ import './Header.css'
 const PHONE = '+5527999996604'
 const SMS_URL = `sms:${PHONE}`
 
-export default function Header({ theme, toggleTheme }) {
+export default function Header() {
   const { lang, toggle: toggleLang, t } = useLanguage()
   const { isAdmin, openAdmin }          = useAdmin()
   const [menuOpen, setMenuOpen] = useState(false)
@@ -25,12 +25,7 @@ export default function Header({ theme, toggleTheme }) {
       <div className="container header-inner">
 
         <a href="#inicio" className="logo" onClick={closeMenu}>
-          <div className="logo-icon">
-            <i className="fas fa-soap"></i>
-          </div>
-          <span className="logo-text">
-            Lidia <strong>House Clean</strong>
-          </span>
+          <img src="/logo.png" alt="Lidia House Clean" className="logo-img" />
         </a>
 
         <nav className={`nav ${menuOpen ? 'open' : ''}`}>
@@ -51,11 +46,6 @@ export default function Header({ theme, toggleTheme }) {
             <span className={lang === 'pt-BR' ? 'lang-active' : ''}>PT</span>
             <span className="lang-divider">|</span>
             <span className={lang === 'en-US' ? 'lang-active' : ''}>EN</span>
-          </button>
-
-          {/* Theme toggle */}
-          <button className="theme-btn" onClick={toggleTheme} aria-label="Alternar tema">
-            <i className={`fas fa-${theme === 'light' ? 'moon' : 'sun'}`}></i>
           </button>
 
           {/* Admin trigger */}
