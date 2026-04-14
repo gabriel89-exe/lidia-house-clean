@@ -1,0 +1,660 @@
+/* ==========================================
+   ADMIN PANEL — OVERLAY + MODAL
+   ========================================== */
+
+.ap-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(6px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: ap-fade-in 0.2s ease;
+}
+
+@keyframes ap-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Shared modal shell ── */
+.ap-login-wrap,
+.ap-panel {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 32px 80px rgba(0,0,0,0.35);
+  border: 1px solid var(--border);
+  animation: ap-slide-up 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+@keyframes ap-slide-up {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ==========================================
+   LOGIN FORM
+   ========================================== */
+
+.ap-login-wrap {
+  width: 100%;
+  max-width: 400px;
+  padding: 48px 40px 40px;
+  position: relative;
+  text-align: center;
+}
+
+.ap-login-icon {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0284c7, #0ea5e9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 1.6rem;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.35);
+}
+
+.ap-login-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.ap-login-sub {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+/* ==========================================
+   PANEL (logged in)
+   ========================================== */
+
+.ap-panel {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Panel header */
+.ap-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.ap-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ap-panel-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #0284c7, #0ea5e9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.ap-panel-title span {
+  font-weight: 700;
+  font-size: 0.97rem;
+  color: var(--text-main);
+  display: block;
+}
+
+.ap-panel-title small {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.ap-panel-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Tabs */
+.ap-tabs {
+  display: flex;
+  gap: 0;
+  padding: 0 28px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.ap-tab {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 14px 20px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  border-bottom: 2.5px solid transparent;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-bottom: -1px;
+}
+
+.ap-tab:hover {
+  color: var(--primary);
+}
+
+.ap-tab.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+/* Content area */
+.ap-content {
+  padding: 28px;
+  overflow-y: auto;
+}
+
+/* ==========================================
+   SHARED FORM ELEMENTS
+   ========================================== */
+
+.ap-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ap-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.ap-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.ap-field label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+}
+
+.ap-hint {
+  font-weight: 400;
+  opacity: 0.7;
+  font-size: 0.74rem;
+}
+
+.ap-field input,
+.ap-field select,
+.ap-field textarea {
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  background: var(--bg);
+  transition: var(--transition);
+  font-family: var(--font-body);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ap-field input:focus,
+.ap-field select:focus,
+.ap-field textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+}
+
+.ap-field textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+/* Input with icon */
+.ap-input-wrap {
+  position: relative;
+}
+
+.ap-input-wrap input {
+  padding-left: 42px;
+}
+
+.ap-input-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  pointer-events: none;
+}
+
+.ap-eye-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  font-size: 0.85rem;
+}
+
+.ap-eye-btn:hover { color: var(--primary); }
+
+/* Error */
+.ap-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.84rem;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+}
+
+/* Submit button */
+.ap-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  background: linear-gradient(135deg, #0284c7, #0ea5e9);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 13px 28px;
+  font-size: 0.93rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 16px rgba(2, 132, 199, 0.3);
+}
+
+.ap-submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(2, 132, 199, 0.4);
+}
+
+.ap-submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.ap-submit-saved {
+  background: linear-gradient(135deg, #059669, #10b981) !important;
+  box-shadow: 0 4px 16px rgba(5, 150, 105, 0.3) !important;
+}
+
+/* Logout button */
+.ap-logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1.5px solid rgba(239, 68, 68, 0.2);
+  border-radius: var(--radius-full);
+  padding: 7px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ef4444;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.ap-logout-btn:hover {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #fff;
+}
+
+/* Close button */
+.ap-close-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: var(--bg-secondary);
+  border: 1.5px solid var(--border);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.ap-close-btn:hover {
+  background: var(--text-muted);
+  color: #fff;
+}
+
+/* ==========================================
+   PROFILE TAB — Photo upload
+   ========================================== */
+
+.ap-photo-upload {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  border: 3px solid var(--border);
+  margin: 0 auto;
+  transition: var(--transition);
+}
+
+.ap-photo-upload:hover .ap-photo-overlay {
+  opacity: 1;
+}
+
+.ap-photo-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ap-photo-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--primary);
+}
+
+.ap-photo-placeholder i { font-size: 1.4rem; }
+.ap-photo-placeholder span { font-size: 0.68rem; font-weight: 600; }
+
+.ap-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 132, 199, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.2rem;
+  opacity: 0;
+  transition: var(--transition);
+}
+
+/* ==========================================
+   GALLERY TAB
+   ========================================== */
+
+.ap-gallery-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.ap-sub-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.ap-sub-title i { color: var(--primary); }
+
+/* Before/After image upload pair */
+.ap-img-pair {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+}
+
+.ap-img-arrow {
+  color: var(--text-muted);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.ap-img-slot {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px dashed var(--border);
+  transition: var(--transition);
+}
+
+.ap-img-slot:hover {
+  border-color: var(--primary);
+}
+
+.ap-img-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ap-img-ph {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg-secondary);
+}
+
+.ap-img-ph i { font-size: 1.5rem; opacity: 0.5; }
+
+.ap-img-ph-before { border-right: 2px dashed var(--border); }
+.ap-img-ph-after  { color: #059669; }
+.ap-img-ph-after i { color: #059669; opacity: 0.7; }
+
+/* Compressing indicator */
+.ap-compressing {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.84rem;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+/* Jobs list */
+.ap-jobs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-top: 1px solid var(--border);
+  padding-top: 28px;
+}
+
+.ap-job-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+}
+
+.ap-job-imgs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.ap-job-imgs img {
+  width: 52px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+}
+
+.ap-job-imgs i {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.ap-job-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ap-job-info strong {
+  font-size: 0.88rem;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ap-job-info span {
+  font-size: 0.75rem;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.ap-job-remove {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1.5px solid rgba(239, 68, 68, 0.2);
+  border-radius: var(--radius-full);
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #ef4444;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.ap-job-remove:hover,
+.ap-job-remove-confirm {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #fff;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 640px) {
+  .ap-login-wrap {
+    padding: 40px 24px 32px;
+  }
+
+  .ap-content {
+    padding: 20px;
+  }
+
+  .ap-row {
+    grid-template-columns: 1fr;
+  }
+
+  .ap-panel-header {
+    padding: 16px 20px;
+  }
+
+  .ap-tabs {
+    padding: 0 20px;
+  }
+
+  .ap-tab {
+    padding: 12px 14px;
+    font-size: 0.82rem;
+  }
+
+  .ap-img-pair {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+
+  .ap-img-arrow {
+    text-align: center;
+    transform: rotate(90deg);
+  }
+
+  .ap-panel-title small {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .ap-overlay {
+    padding: 12px;
+    align-items: flex-end;
+  }
+
+  .ap-panel,
+  .ap-login-wrap {
+    max-height: 92vh;
+    border-radius: 20px 20px 12px 12px;
+  }
+
+  .ap-login-wrap {
+    padding: 32px 20px 28px;
+  }
+
+  .ap-content {
+    padding: 16px;
+  }
+
+  .ap-job-imgs img {
+    width: 48px;
+    height: 48px;
+  }
+}
