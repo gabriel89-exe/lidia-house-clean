@@ -36,9 +36,21 @@
 }
 
 .logo-img {
-  height: 48px;
+  height: 52px;
   width: auto;
   object-fit: contain;
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,0.10));
+  transition: var(--transition);
+}
+
+.logo:hover .logo-img {
+  transform: scale(1.04);
+}
+
+@media (max-width: 900px) {
+  .logo-img {
+    height: 44px;
+  }
 }
 
 @media (max-width: 480px) {
