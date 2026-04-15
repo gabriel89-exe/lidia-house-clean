@@ -92,9 +92,13 @@ function BeforeAfterCard({ item, isAdmin, onRemove, labels }) {
                   Botão "Editar Perfil" visível só para admin
 ══════════════════════════════════════════════════════════════ */
 export default function Gallery() {
-  const { t } = useLanguage()
-  const g     = t.gallery
+  const { t, lang } = useLanguage()
+  const g           = t.gallery
   const { isAdmin, profile, gallery, removeJob, openAdmin } = useAdmin()
+
+  // Exibe a bio/tagline no idioma selecionado; cai no PT se EN não estiver preenchida
+  const displayBio     = profile.bio?.pt     ? (profile.bio[lang]     || profile.bio.pt)     : g.profileBio
+  const displayTagline = profile.tagline?.pt ? (profile.tagline[lang] || profile.tagline.pt) : g.profileTagline
 
   return (
     <>
@@ -184,8 +188,8 @@ export default function Gallery() {
                   {g.verified}
                 </span>
               </div>
-              <p className="profile-tagline">{g.profileTagline}</p>
-              <p className="profile-bio">{g.profileBio}</p>
+              <p className="profile-tagline">{displayTagline}</p>
+              <p className="profile-bio">{displayBio}</p>
 
               {/* Estatísticas: anos de experiência e avaliação */}
               <div className="profile-stats">

@@ -195,21 +195,40 @@ function ProfileTab() {
       </div>
 
       <div className="ap-field">
-        <label>Tagline</label>
+        <label>Tagline (Português)</label>
         <input
-          value={form.tagline}
-          onChange={e => set('tagline', e.target.value)}
+          value={form.tagline.pt}
+          onChange={e => set('tagline', { ...form.tagline, pt: e.target.value })}
           placeholder="Ex: Limpeza que transforma"
         />
       </div>
 
       <div className="ap-field">
-        <label>Bio / Descrição</label>
+        <label>Tagline (English)</label>
+        <input
+          value={form.tagline.en}
+          onChange={e => set('tagline', { ...form.tagline, en: e.target.value })}
+          placeholder="Ex: Cleaning that transforms"
+        />
+      </div>
+
+      <div className="ap-field">
+        <label>Bio / Descrição (Português)</label>
         <textarea
           rows={4}
-          value={form.bio}
-          onChange={e => set('bio', e.target.value)}
+          value={form.bio.pt}
+          onChange={e => set('bio', { ...form.bio, pt: e.target.value })}
           placeholder="Fale um pouco sobre você e seu trabalho..."
+        />
+      </div>
+
+      <div className="ap-field">
+        <label>Bio / Description (English)</label>
+        <textarea
+          rows={4}
+          value={form.bio.en}
+          onChange={e => set('bio', { ...form.bio, en: e.target.value })}
+          placeholder="Tell a bit about yourself and your work..."
         />
       </div>
 
