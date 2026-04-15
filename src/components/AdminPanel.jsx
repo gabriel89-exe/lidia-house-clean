@@ -195,6 +195,16 @@ function ProfileTab() {
       </div>
 
 
+      <div className="ap-field">
+        <label>Bio / Descrição</label>
+        <textarea
+          rows={4}
+          value={form.bio}
+          onChange={e => set('bio', e.target.value)}
+          placeholder="Fale um pouco sobre você e seu trabalho..."
+        />
+      </div>
+
       <button
         type="submit"
         className={`ap-submit ${saved ? 'ap-submit-saved' : ''}`}

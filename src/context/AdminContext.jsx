@@ -82,6 +82,7 @@ function mapProfile(row) {
   if (!row) return DEFAULT_PROFILE
   return {
     name:       row.name       ?? DEFAULT_PROFILE.name,
+    bio:        row.bio        ?? DEFAULT_PROFILE.bio,
     photo:      row.photo_url  ?? null,
     experience: row.experience ?? DEFAULT_PROFILE.experience,
   }
@@ -150,6 +151,7 @@ export function AdminProvider({ children }) {
     const row = {
       id:         1,
       name:       data.name,
+      bio:        data.bio,
       experience: data.experience,
       photo_url:  photoUrl,
     }

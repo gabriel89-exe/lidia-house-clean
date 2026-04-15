@@ -185,7 +185,7 @@ export default function Gallery() {
                 </span>
               </div>
               <p className="profile-tagline">{g.profileTagline}</p>
-              <p className="profile-bio">{g.profileBio}</p>
+              <p className="profile-bio">{profile.bio}</p>
 
               {/* Estatísticas: anos de experiência e avaliação */}
               <div className="profile-stats">
