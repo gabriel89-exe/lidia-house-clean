@@ -77,30 +77,13 @@ function extractStoragePath(publicUrl) {
   return idx !== -1 ? publicUrl.slice(idx + marker.length) : null
 }
 
-// Converte campo bilíngue armazenado como JSON { pt, en } ou texto simples (legado)
-function parseBilingual(value, defaultPt) {
-  if (!value) return { pt: defaultPt, en: '' }
-  try {
-    const parsed = JSON.parse(value)
-    if (parsed && typeof parsed === 'object' && 'pt' in parsed) return parsed
-  } catch {}
-  return { pt: value, en: '' } // texto legado → assume PT
-}
-
 // Mapeia linha do banco para o formato esperado pelos componentes
 function mapProfile(row) {
-  if (!row) return {
-    ...DEFAULT_PROFILE,
-    bio:     { pt: DEFAULT_PROFILE.bio,     en: '' },
-    tagline: { pt: DEFAULT_PROFILE.tagline, en: '' },
-  }
+  if (!row) return DEFAULT_PROFILE
   return {
-    name:        row.name        ?? DEFAULT_PROFILE.name,
-    tagline:     parseBilingual(row.tagline, DEFAULT_PROFILE.tagline),
-    bio:         parseBilingual(row.bio,     DEFAULT_PROFILE.bio),
-    photo:       row.photo_url   ?? null,
-    experience:  row.experience  ?? DEFAULT_PROFILE.experience,
-    specialties: row.specialties ?? DEFAULT_PROFILE.specialties,
+    name:       row.name       ?? DEFAULT_PROFILE.name,
+    photo:      row.photo_url  ?? null,
+    experience: row.experience ?? DEFAULT_PROFILE.experience,
   }
 }
 
@@ -122,11 +105,7 @@ const AdminCtx = createContext(null)
 export function AdminProvider({ children }) {
   const [isAdmin,   setIsAdmin]   = useState(() => sessionStorage.getItem(SESSION_KEY) === '1')
   const [showAdmin, setShowAdmin] = useState(false)
-  const [profile,   setProfileSt] = useState({
-    ...DEFAULT_PROFILE,
-    bio:     { pt: DEFAULT_PROFILE.bio,     en: '' },
-    tagline: { pt: DEFAULT_PROFILE.tagline, en: '' },
-  })
+  const [profile,   setProfileSt] = useState(DEFAULT_PROFILE)
   const [gallery,   setGallerySt] = useState([])
   const [dbLoading, setDbLoading] = useState(true)
 
@@ -169,13 +148,10 @@ export function AdminProvider({ children }) {
       photoUrl = await uploadImage(data.photo, 'profile/photo.jpg')
     }
     const row = {
-      id:          1,
-      name:        data.name,
-      tagline:     JSON.stringify({ pt: data.tagline.pt, en: data.tagline.en }),
-      bio:         JSON.stringify({ pt: data.bio.pt,     en: data.bio.en }),
-      experience:  data.experience,
-      specialties: data.specialties,
-      photo_url:   photoUrl,
+      id:         1,
+      name:       data.name,
+      experience: data.experience,
+      photo_url:  photoUrl,
     }
     const { error } = await supabase.from('profile').upsert(row)
     if (error) throw error

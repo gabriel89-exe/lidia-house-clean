@@ -194,54 +194,6 @@ function ProfileTab() {
         </div>
       </div>
 
-      <div className="ap-field">
-        <label>Tagline (Português)</label>
-        <input
-          value={form.tagline.pt}
-          onChange={e => set('tagline', { ...form.tagline, pt: e.target.value })}
-          placeholder="Ex: Limpeza que transforma"
-        />
-      </div>
-
-      <div className="ap-field">
-        <label>Tagline (English)</label>
-        <input
-          value={form.tagline.en}
-          onChange={e => set('tagline', { ...form.tagline, en: e.target.value })}
-          placeholder="Ex: Cleaning that transforms"
-        />
-      </div>
-
-      <div className="ap-field">
-        <label>Bio / Descrição (Português)</label>
-        <textarea
-          rows={4}
-          value={form.bio.pt}
-          onChange={e => set('bio', { ...form.bio, pt: e.target.value })}
-          placeholder="Fale um pouco sobre você e seu trabalho..."
-        />
-      </div>
-
-      <div className="ap-field">
-        <label>Bio / Description (English)</label>
-        <textarea
-          rows={4}
-          value={form.bio.en}
-          onChange={e => set('bio', { ...form.bio, en: e.target.value })}
-          placeholder="Tell a bit about yourself and your work..."
-        />
-      </div>
-
-      <div className="ap-field">
-        <label>Especialidades <span className="ap-hint">(separadas por vírgula)</span></label>
-        <input
-          value={form.specialties.join(', ')}
-          onChange={e =>
-            set('specialties', e.target.value.split(',').map(s => s.trim()).filter(Boolean))
-          }
-          placeholder="Limpeza Residencial, Limpeza Comercial, Pós-Obra"
-        />
-      </div>
 
       <button
         type="submit"
