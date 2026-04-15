@@ -264,21 +264,14 @@ export const translations = {
 const LanguageContext = createContext()
 
 export function LanguageProvider({ children }) {
-  const [lang, setLang] = useState(() =>
-    // Respeita preferência salva; padrão PT-BR
-    localStorage.getItem('lhc_lang') || 'pt-BR'
-  )
-
-  const setLanguage = (l) => setLang(l)
+  const lang = 'en-US'
 
   useEffect(() => {
-    // Atualiza o atributo lang do HTML e salva preferência
     document.documentElement.lang = lang
-    localStorage.setItem('lhc_lang', lang)
-  }, [lang])
+  }, [])
 
   return (
-    <LanguageContext.Provider value={{ lang, setLanguage, t: translations[lang] }}>
+    <LanguageContext.Provider value={{ lang, t: translations[lang] }}>
       {children}
     </LanguageContext.Provider>
   )

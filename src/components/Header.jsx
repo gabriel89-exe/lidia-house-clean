@@ -7,7 +7,7 @@ const PHONE = '+17747735078'
 const SMS_URL = `sms:${PHONE}`
 
 export default function Header() {
-  const { lang, setLanguage, t } = useLanguage()
+  const { t } = useLanguage()
   const { isAdmin, openAdmin }          = useAdmin()
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -41,24 +41,6 @@ export default function Header() {
         </nav>
 
         <div className="header-actions">
-          {/* Language toggle — cada label seta o idioma diretamente */}
-          <div className="lang-btn" aria-label="Mudar idioma / Change language">
-            <span
-              className={lang === 'pt-BR' ? 'lang-active' : ''}
-              onClick={() => setLanguage('pt-BR')}
-              role="button"
-              tabIndex={0}
-              aria-label="Português"
-            >PT</span>
-            <span className="lang-divider">|</span>
-            <span
-              className={lang === 'en-US' ? 'lang-active' : ''}
-              onClick={() => setLanguage('en-US')}
-              role="button"
-              tabIndex={0}
-              aria-label="English"
-            >EN</span>
-          </div>
 
           {/* Admin trigger */}
           <button
