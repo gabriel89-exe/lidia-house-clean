@@ -78,6 +78,10 @@ export const translations = {
       profileBadge:    'A Profissional',
       profileTitle:    'Conheça a Lidia',
       profileSubtitle: 'Dedicação, cuidado e excelência em cada serviço realizado.',
+      // Perfil traduzido — exibido no card público conforme idioma
+      profileTagline:     'Limpeza que transforma',
+      profileBio:         'Profissional de limpeza com mais de 8 anos de experiência, dedicada a transformar ambientes em espaços impecáveis com cuidado e atenção a cada detalhe.',
+      profileSpecialties: ['Limpeza Residencial', 'Limpeza Comercial', 'Limpeza Pós-Obra'],
     },
 
     // Formulário e canais de contato
@@ -197,6 +201,10 @@ export const translations = {
       profileBadge:    'The Professional',
       profileTitle:    'Meet Lidia',
       profileSubtitle: 'Dedication, care, and excellence in every service.',
+      // Translated profile — displayed on the public card based on language
+      profileTagline:     'Cleaning that transforms',
+      profileBio:         'Cleaning professional with over 8 years of experience, dedicated to transforming spaces into spotless environments with care and attention to every detail.',
+      profileSpecialties: ['Residential Cleaning', 'Commercial Cleaning', 'Post-Construction Cleaning'],
     },
 
     contact: {

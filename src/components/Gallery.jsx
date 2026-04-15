@@ -184,8 +184,8 @@ export default function Gallery() {
                   {g.verified}
                 </span>
               </div>
-              <p className="profile-tagline">{profile.tagline}</p>
-              <p className="profile-bio">{profile.bio}</p>
+              <p className="profile-tagline">{g.profileTagline}</p>
+              <p className="profile-bio">{g.profileBio}</p>
 
               {/* Estatísticas: anos de experiência e avaliação */}
               <div className="profile-stats">
@@ -202,7 +202,7 @@ export default function Gallery() {
 
               {/* Tags de especialidade (editáveis no painel admin) */}
               <div className="profile-specialties">
-                {profile.specialties.map((s, i) => (
+                {g.profileSpecialties.map((s, i) => (
                   <span key={i} className="profile-tag">{s}</span>
                 ))}
               </div>
