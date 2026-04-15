@@ -7,7 +7,7 @@ const BASE   = 'https://images.unsplash.com'
 const IMAGES = [
   `${BASE}/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=500&q=75`,
   `${BASE}/photo-1497366216548-37526070297c?auto=format&fit=crop&w=500&q=75`,
-  `${BASE}/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=500&q=75`,
+  '/obra.png',
 ]
 
 const ICONS = ['fas fa-home', 'fas fa-building', 'fas fa-hard-hat']
