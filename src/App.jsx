@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, lazy, Suspense } from 'react'
 import { LanguageProvider } from './context/LanguageContext'
 import { AdminProvider, useAdmin } from './context/AdminContext'
 import Header from './components/Header'
@@ -8,7 +8,9 @@ import Gallery from './components/Gallery'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import MessagesFloat from './components/WhatsAppFloat'
-import AdminPanel from './components/AdminPanel'
+
+// AdminPanel carregado apenas quando necessário (não faz parte do bundle inicial)
+const AdminPanel = lazy(() => import('./components/AdminPanel'))
 
 /* ══════════════════════════════════════════════════════════════
    AppInner
@@ -17,11 +19,11 @@ import AdminPanel from './components/AdminPanel'
    Recebe theme/toggleTheme como props para evitar re-render duplo.
 ══════════════════════════════════════════════════════════════ */
 function AppInner() {
-  const { showAdmin, closeAdmin } = useAdmin()
+  const { showAdmin, closeAdmin, gallery } = useAdmin()
 
   // IntersectionObserver: adiciona .visible nos elementos .reveal
   // quando eles entram na viewport, disparando as animações CSS.
-  // Sem dependências → re-observa após mudanças de layout (galeria).
+  // Depende de `gallery` para re-observar quando novos itens são adicionados.
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }),
@@ -30,7 +32,7 @@ function AppInner() {
     document.querySelectorAll('.reveal, .reveal-left, .reveal-right')
       .forEach(el => observer.observe(el))
     return () => observer.disconnect()
-  })
+  }, [gallery])
 
   return (
     <div className="app">
@@ -53,7 +55,9 @@ function AppInner() {
           // Clique fora do modal fecha o painel
           onClick={e => { if (e.target === e.currentTarget) closeAdmin() }}
         >
-          <AdminPanel onClose={closeAdmin} />
+          <Suspense fallback={null}>
+            <AdminPanel onClose={closeAdmin} />
+          </Suspense>
         </div>
       )}
     </div>

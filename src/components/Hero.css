@@ -272,6 +272,13 @@
   .hero-float-2 { right: 10px; }
 }
 
+/* Respeita preferência do usuário por menos movimento (acessibilidade + performance) */
+@media (prefers-reduced-motion: reduce) {
+  .hero-bubble { animation: none; display: none; }
+  .hero-float  { animation: none; }
+  .hero-scroll a { animation: none; }
+}
+
 @media (max-width: 480px) {
   .hero-inner {
     gap: 24px;
