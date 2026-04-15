@@ -1,7 +1,7 @@
 import { useLanguage } from '../context/LanguageContext'
 import './Contact.css'
 
-const PHONE = '+5527999996604'
+const PHONE = '+17747735078'
 const EMAIL = 'lidiacleanhouse@gmail.com'
 
 export default function Contact() {

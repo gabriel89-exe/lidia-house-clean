@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useLanguage } from '../context/LanguageContext'
 import './WhatsAppFloat.css'
 
-const PHONE = '+5527999996604'
+const PHONE = '+17747735078'
 
 export default function MessagesFloat() {
   const { t } = useLanguage()

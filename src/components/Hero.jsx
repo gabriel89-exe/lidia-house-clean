@@ -1,7 +1,7 @@
 import { useLanguage } from '../context/LanguageContext'
 import './Hero.css'
 
-const PHONE = '+5527999996604'
+const PHONE = '+17747735078'
 const SMS_URL = `sms:${PHONE}`
 const EMAIL = 'lidiacleanhouse@gmail.com'
 

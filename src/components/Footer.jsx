@@ -1,7 +1,7 @@
 import { useLanguage } from '../context/LanguageContext'
 import './Footer.css'
 
-const PHONE_RAW = '5527999996604'
+const PHONE_RAW = '17747735078'
 const EMAIL     = 'lidiacleanhouse@gmail.com'
 
 export default function Footer() {
@@ -58,7 +58,7 @@ export default function Footer() {
           <ul className="footer-contact-list">
             <li>
               <i className="fas fa-phone"></i>
-              <a href={`sms:+${PHONE_RAW}`}>(617) 999-6604</a>
+              <a href={`sms:+${PHONE_RAW}`}>(774) 773-5078</a>
             </li>
             <li>
               <i className="fas fa-comment-dots"></i>

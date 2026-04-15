@@ -3,7 +3,7 @@ import { useLanguage } from '../context/LanguageContext'
 import { useAdmin } from '../context/AdminContext'
 import './Header.css'
 
-const PHONE = '+5527999996604'
+const PHONE = '+17747735078'
 const SMS_URL = `sms:${PHONE}`
 
 export default function Header() {

@@ -1,7 +1,7 @@
 import { useLanguage } from '../context/LanguageContext'
 import './Services.css'
 
-const PHONE = '+5527999996604'
+const PHONE = '+17747735078'
 const BASE   = 'https://images.unsplash.com'
 
 const IMAGES = [
