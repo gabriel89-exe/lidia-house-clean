@@ -272,11 +272,19 @@
   .hero-float-2 { right: 10px; }
 }
 
+/* Reduz efeitos pesados de GPU em smartphones */
+@media (max-width: 768px) {
+  .hero-blob { filter: blur(40px); }
+  .hero-badge, .btn-ghost { backdrop-filter: blur(4px); }
+  .hero-bubble { animation-duration: 18s; }
+}
+
 /* Respeita preferência do usuário por menos movimento (acessibilidade + performance) */
 @media (prefers-reduced-motion: reduce) {
   .hero-bubble { animation: none; display: none; }
   .hero-float  { animation: none; }
   .hero-scroll a { animation: none; }
+  .hero-badge, .btn-ghost { backdrop-filter: none; }
 }
 
 @media (max-width: 480px) {

@@ -23,7 +23,7 @@ function BeforeAfterCard({ item, isAdmin, onRemove, labels }) {
       <div className="ba-slider-wrap">
 
         {/* Imagem "depois" — camada base (sempre visível atrás) */}
-        <img src={item.after}  alt="depois" className="ba-img ba-img-after" />
+        <img src={item.after}  alt="depois" className="ba-img ba-img-after"  loading="lazy" decoding="async" />
 
         {/* Imagem "antes" — recortada pela esquerda conforme pos */}
         <img
@@ -31,6 +31,8 @@ function BeforeAfterCard({ item, isAdmin, onRemove, labels }) {
           alt="antes"
           className="ba-img ba-img-before"
           style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}
+          loading="lazy"
+          decoding="async"
         />
 
         {/* Linha divisória + handle circular */}

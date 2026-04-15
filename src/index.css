@@ -250,6 +250,14 @@ ul {
   40%, 100% { left: 200%; }
 }
 
+/* Desativa animação de brilho nos botões em mobile e modo reduzido */
+@media (max-width: 768px) {
+  .btn-accent::before { animation: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-accent::before { animation: none; }
+}
+
 /* ==========================================
    SCROLL REVEAL ANIMATIONS
    ========================================== */

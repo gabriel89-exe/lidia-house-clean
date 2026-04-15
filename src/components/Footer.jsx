@@ -16,7 +16,7 @@ export default function Footer() {
         {/* Brand */}
         <div className="footer-brand">
           <div className="footer-logo">
-            <img src="/logo.png" alt="Lidia House Clean" className="footer-logo-img" />
+            <img src="/logo.png" alt="Lidia House Clean" className="footer-logo-img" loading="lazy" />
           </div>
           <p className="footer-tagline">{f.tagline}</p>
           <div className="footer-socials">
