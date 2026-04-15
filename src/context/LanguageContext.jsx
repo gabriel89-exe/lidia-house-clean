@@ -269,7 +269,7 @@ export function LanguageProvider({ children }) {
     localStorage.getItem('lhc_lang') || 'pt-BR'
   )
 
-  const toggle = () => setLang(l => l === 'pt-BR' ? 'en-US' : 'pt-BR')
+  const setLanguage = (l) => setLang(l)
 
   useEffect(() => {
     // Atualiza o atributo lang do HTML e salva preferência
@@ -278,7 +278,7 @@ export function LanguageProvider({ children }) {
   }, [lang])
 
   return (
-    <LanguageContext.Provider value={{ lang, toggle, t: translations[lang] }}>
+    <LanguageContext.Provider value={{ lang, setLanguage, t: translations[lang] }}>
       {children}
     </LanguageContext.Provider>
   )
