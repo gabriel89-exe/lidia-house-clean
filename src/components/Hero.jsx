@@ -3,7 +3,7 @@ import './Hero.css'
 
 const PHONE = '+17747735078'
 const SMS_URL = `sms:${PHONE}`
-const EMAIL = 'lidiacleanhouse@gmail.com'
+const EMAIL = 'lidihouseclean22@gmail.com'
 
 const HERO_IMG = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=500&q=80'
 

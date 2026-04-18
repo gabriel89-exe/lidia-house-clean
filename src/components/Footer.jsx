@@ -2,7 +2,7 @@ import { useLanguage } from '../context/LanguageContext'
 import './Footer.css'
 
 const PHONE_RAW = '17747735078'
-const EMAIL     = 'lidiacleanhouse@gmail.com'
+const EMAIL     = 'lidihouseclean22@gmail.com'
 
 export default function Footer() {
   const { t } = useLanguage()
