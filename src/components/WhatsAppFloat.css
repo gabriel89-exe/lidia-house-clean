@@ -1,0 +1,106 @@
+/* ==========================================
+   MESSAGES FLOAT BUTTON
+   ========================================== */
+
+.msg-float-wrapper {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.msg-float-btn {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #0284c7, #0ea5e9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.6rem;
+  box-shadow: 0 6px 24px rgba(2, 132, 199, 0.45);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+}
+
+.msg-float-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 32px rgba(2, 132, 199, 0.6);
+}
+
+.msg-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #0ea5e9;
+  opacity: 0.4;
+  animation: msg-pulse 2.2s ease-out infinite;
+}
+
+@keyframes msg-pulse {
+  0%   { transform: scale(1);   opacity: 0.4; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* Tooltip */
+.msg-tooltip {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px 14px 18px;
+  box-shadow: var(--shadow);
+  max-width: 220px;
+  position: relative;
+  animation: fadeUp 0.4s ease;
+}
+
+.msg-tooltip p {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 3px;
+}
+
+.msg-tooltip span {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.msg-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: var(--transition);
+}
+
+.msg-close:hover {
+  background: var(--bg-secondary);
+  color: var(--text-main);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  .msg-float-wrapper { bottom: 20px; right: 20px; }
+  .msg-float-btn { width: 52px; height: 52px; font-size: 1.4rem; }
+}
