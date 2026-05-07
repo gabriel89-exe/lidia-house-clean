@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monitor DER-SP · Câmeras KM 110</title>
+  <meta name="description"
+    content="Monitoramento em tempo real das câmeras do km 110 das rodovias SP-055 e SP-360, com contagem automática de veículos por inteligência artificial." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- HLS.js para streaming sem delay -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <!-- TensorFlow.js + COCO-SSD para detecção de veículos -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.11.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.2/dist/coco-ssd.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="header-brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-name">Monitor DER-SP</h1>
+          <span class="brand-sub">Câmeras KM 110 · Tempo Real</span>
+        </div>
+      </div>
+      <div class="header-status">
+        <div class="status-dot" id="globalStatus"></div>
+        <span id="globalStatusText">Carregando streams…</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- AI MODEL STATUS -->
+  <div class="ai-banner" id="aiBanner">
+    <div class="ai-spinner"></div>
+    <span id="aiStatus">Carregando modelo de I.A. para detecção de veículos…</span>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- INFO BAR -->
+    <div class="info-bar">
+      <div class="info-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
+        </svg>
+        <span id="activeCamerasCount">-- câmeras ativas</span>
+      </div>
+      <div class="info-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" />
+          <polyline points="12 6 12 12 16 14" />
+        </svg>
+        <span id="clockDisplay">--:--:--</span>
+      </div>
+      <div class="info-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="3" width="20" height="14" rx="2" />
+          <line x1="8" y1="21" x2="16" y2="21" />
+          <line x1="12" y1="17" x2="12" y2="21" />
+        </svg>
+        <span>HLS Live · Baixo Delay</span>
+      </div>
+      <div class="info-item total-vehicles">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11a2 2 0 012 2v3" />
+          <rect x="9" y="11" width="14" height="10" rx="2" />
+          <circle cx="12" cy="21" r="1" />
+          <circle cx="20" cy="21" r="1" />
+        </svg>
+        <span>Total (todas câmeras): <strong id="totalVehicles">0</strong></span>
+        <button class="btn-reset-global" onclick="resetAllCount()">↺ Zerar tudo</button>
+      </div>
+    </div>
+
+    <!-- SELETOR DE CÂMERAS -->
+    <div class="camera-selector">
+      <p class="selector-title">Selecione as câmeras para monitorar:</p>
+      <div class="camera-pills" id="cameraSelectorPills">
+        <!-- Gerado via JS -->
+      </div>
+    </div>
+
+    <!-- CAMERAS GRID -->
+    <div class="cameras-grid" id="camerasGrid">
+      <!-- Câmeras serão geradas dinamicamente via app.js -->
+    </div><!-- /cameras-grid -->
+
+    <!-- LEGENDA -->
+    <div class="legend">
+      <p class="legend-title">Como a contagem funciona</p>
+      <div class="legend-items">
+        <div class="legend-item counted">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11a2 2 0 012 2v3" />
+            <rect x="9" y="11" width="14" height="10" rx="2" />
+            <circle cx="12" cy="21" r="1" />
+            <circle cx="20" cy="21" r="1" />
+          </svg>
+          <span>Contados ao <strong>entrar no vídeo</strong>: Carros · Caminhões · Ônibus sendo rastreados</span>
+        </div>
+        <div class="legend-item ignored">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="1" y1="1" x2="23" y2="23" />
+            <path d="M17 17H3a2 2 0 01-2-2V5a2 2 0 012-2h14" />
+          </svg>
+          <span>Ignorados: Parados · Motos · Bicicletas · Pedestres · Fora da pista</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>Monitor DER-SP · Câmeras km 110 · Detecção por I.A. (COCO-SSD / TensorFlow.js)</p>
+    <p>Fonte: <a href="https://www.der.sp.gov.br" target="_blank" rel="noopener">DER-SP</a> · Streams HLS via servidor
+      público DER</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
